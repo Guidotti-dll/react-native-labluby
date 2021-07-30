@@ -7,6 +7,7 @@ import UnitsPicker from './components/UnitsPicker';
 import {WEATHER_API_KEY} from '@env'
 import { colors } from './utils';
 import ReloadIcon from './components/ReloadIcon';
+import WeatherDetails from './components/WeatherDetails';
 const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather?'
 
 export default function App() {
@@ -54,12 +55,14 @@ export default function App() {
         <ReloadIcon load={load} />
         <WeatherInfo  currentWeather={currentWeather}/>
         </View>
+        <WeatherDetails currentWeather={currentWeather} unitsSystem={unitsSystem} />
       </View>
     )
   }else if (errorMessage){
     return(
       <View style={styles.container}>
-        <Text>{errorMessage}</Text>
+        <ReloadIcon load={load} />
+        <Text style={{textAlign: 'center'}}>{errorMessage}</Text>
         <StatusBar style="auto" />
       </View>
     )
