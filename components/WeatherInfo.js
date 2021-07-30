@@ -1,4 +1,3 @@
-import { bold } from 'ansi-colors';
 import React from 'react'
 import {View,Text, StyleSheet, Image} from 'react-native'
 import { colors } from '../utils'; 
