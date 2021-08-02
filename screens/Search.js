@@ -22,8 +22,11 @@ function Search({navigation}) {
       }
       const newLocation = {
         city: result.results[0].components.city,
-        state: result.results[0].components.state_code,
+        state_code: result.results[0].components.state_code,
+        state: result.results[0].components.state,
         country: result.results[0].components.country,
+        county: result.results[0].components.county,
+        region: result.results[0].components.region,
         latitude: result.results[0].geometry.lat.toString(),
         longitude: result.results[0].geometry.lng.toString(),
       }

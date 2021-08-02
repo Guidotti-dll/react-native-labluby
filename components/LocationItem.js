@@ -4,13 +4,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../utils';
 
 
-const LocationItem = ({ item: {city, state, country}, navigation }) => (
+const LocationItem = ({ item , navigation }) => (
   <TouchableOpacity  style={styles.container} onPress={() =>
-    navigation.push("Details", { name: city })} >
+    navigation.push("Details", { name: item.city , data: item })} >
     <View style={styles.main}>
-      <Text style={styles.city}>{city}</Text>
+      <Text style={styles.city}>{item.city}</Text>
       <View >
-        <Text >{state}, {country}</Text>
+        <Text >{item.state_code}, {item.country}</Text>
       </View>
     </View>
     <Feather name="arrow-right" size={25} color={colors.PRIMARY_COLOR} />
