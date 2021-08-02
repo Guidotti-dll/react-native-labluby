@@ -3,14 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'r
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { colors } from '../utils';
 import { useDispatch, useSelector } from 'react-redux';
-
-const Location = ({ item: {city, state, country} }) => (
-  <View >
-    <Text >{city}</Text>
-    <Text >{state}</Text>
-    <Text >{country}</Text>
-  </View>
-);
+import LocationItem from '../components/LocationItem';
 
 
 function Search() {
@@ -63,7 +56,7 @@ function Search() {
         <Text style={styles.title}>Previous Searches</Text>
         <FlatList
         data={locations}
-        renderItem={Location}
+        renderItem={LocationItem}
         keyExtractor={location => `${location.latitude}/${location.longitude}`}
       />
       </View>
