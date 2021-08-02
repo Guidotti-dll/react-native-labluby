@@ -2,9 +2,11 @@ import * as React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { colors } from '../utils';
+import { useSelector } from 'react-redux';
 
 
 function Search() {
+  const locations = useSelector(state => state.locations)
   return (
     <View style={styles.container}>
       <View >
