@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LocationItem from '../components/LocationItem';
 
 
-function Search() {
+function Search({navigation}) {
   const locations = useSelector(state => state.locations)
   const dispatch = useDispatch();
   const [enteredLocation, setEnteredLocation] = useState('')
@@ -65,8 +65,8 @@ function Search() {
         <Text style={styles.title}>Previous Searches</Text>
         <FlatList
         data={locations}
-        renderItem={LocationItem}
         keyExtractor={location => `${location.latitude}/${location.longitude}`}
+        renderItem={({item}) => <LocationItem item={item} navigation={navigation} />}
       />
       </View>
     </View>

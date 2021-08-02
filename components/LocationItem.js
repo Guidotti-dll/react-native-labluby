@@ -1,11 +1,12 @@
 import React from 'react'
 import { Feather } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../utils';
 
 
-const LocationItem = ({ item: {city, state, country} }) => (
-  <View style={styles.container} >
+const LocationItem = ({ item: {city, state, country}, navigation }) => (
+  <TouchableOpacity  style={styles.container} onPress={() =>
+    navigation.push("Details", { name: city })} >
     <View style={styles.main}>
       <Text style={styles.city}>{city}</Text>
       <View >
@@ -13,7 +14,7 @@ const LocationItem = ({ item: {city, state, country} }) => (
       </View>
     </View>
     <Feather name="arrow-right" size={25} color={colors.PRIMARY_COLOR} />
-  </View>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({

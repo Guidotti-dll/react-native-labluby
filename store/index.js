@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-const initialState = { locations: [], latitude: '' , longitude: ''};
+const initialState = { locations: []};
 
 const locationReducer = (state = initialState, action) => {
   switch (action.type) {
