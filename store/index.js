@@ -1,13 +1,21 @@
 import { createStore } from 'redux';
 
-const initialState = { locations: [{name: 'Pelotas', state: 'RS', latitude: '-31.3223832,', longitude : '-52.0102279'}], latitude: '' , longitude: ''};
+const initialState = { locations: [], latitude: '' , longitude: ''};
 
 const locationReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'addLocation':
+      const newLocations = state.locations;
+      if(newLocations.find(location => location.city === action.location.city)){
+        return state
+      }
+      if (newLocations.length === 3) {
+        newLocations.splice(0, 1);
+      }
+      newLocations.push(action.location)
       return{
         ...state,
-        location: [...state.locations, action.location]
+        locations: [...newLocations]
       }
   
     default:
