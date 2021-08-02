@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as Location from 'expo-location'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { colors } from '../utils';
@@ -11,14 +12,14 @@ function Search() {
   const dispatch = useDispatch();
   const [enteredLocation, setEnteredLocation] = useState('')
 
-  const submitHandler = async () => {
+  const submitHandler = async (location) => {
+    console.log(location)
     try {
-      const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=e85809527b0341b18712ec1bacc3aab9&q=${enteredLocation}`)
+      const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?key=e85809527b0341b18712ec1bacc3aab9&q=${location ? location : enteredLocation }`)
       const result = await response.json()
       if(result.status.code === 400){
         throw new Error(result.status.message)
       }
-
       const newLocation = {
         city: result.results[0].components.city,
         state: result.results[0].components.state_code,
@@ -27,26 +28,34 @@ function Search() {
         longitude: result.results[0].geometry.lng.toString(),
       }
       dispatch({type: 'addLocation', location: newLocation})
+      setEnteredLocation('')
     } catch (error) {
       alert('Unable to find the city, is the name correct?')
     }
+    
+  }
+
+  const getLocation = async () => {
+    const location = await Location.getCurrentPositionAsync()
+    const {latitude, longitude} = location.coords;
+    submitHandler(`${latitude},${longitude}`)
   }
 
   return (
     <View style={styles.container}>
       <View >
         <Text style={styles.subTitle}>Type your location here</Text>
-        <TextInput style={styles.input}  onChangeText={text => setEnteredLocation(text)}/>
+        <TextInput style={styles.input} defaultValue={enteredLocation}  onChangeText={text => setEnteredLocation(text)}/>
         <View style={styles.actions}>
           <TouchableOpacity
             style={styles.button}
-            onPress={submitHandler}
+            onPress={() => submitHandler('')}
           >
             <Text style={{color: '#fff', fontWeight: 'bold'}}>Submit</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => alert('location')}
+            onPress={getLocation}
           >
             <MaterialCommunityIcons name="crosshairs-gps" color="#fff" size={20} />
           </TouchableOpacity>
